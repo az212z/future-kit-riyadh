@@ -255,7 +255,7 @@ h1,h2,h3{margin:0;font-weight:400;text-wrap:balance}
 .lay-plan svg{width:100%;height:auto;display:block}
 #lay-shapes rect{fill:#3E5F4F;stroke:rgba(218,204,166,.45);stroke-width:1}
 #lay-shapes rect.island{fill:var(--gold)}
-#lay-dots circle{fill:var(--ivory)} #lay-dots text{fill:var(--ivory);font:500 10px var(--sans)}
+#lay-dots circle{fill:var(--ivory)} #lay-dots text{fill:var(--ivory);font:500 10px var(--sans);paint-order:stroke;stroke:#10291F;stroke-width:4px;stroke-linejoin:round}
 .lay-info h3{font-family:var(--serif);font-size:34px;line-height:1.45;color:var(--gold-l);margin-bottom:8px}
 .lay-info>p{color:#C9D0C5;font-size:15.5px}
 .lay-info dl{margin:16px 0 0}

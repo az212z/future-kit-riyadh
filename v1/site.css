@@ -164,7 +164,7 @@ p{margin:0 0 1em;text-wrap:pretty}
 .lay-plan svg{width:100%;height:auto;display:block}
 #lay-shapes rect{fill:var(--sage);stroke:rgba(244,241,231,.5);stroke-width:1;transition:all .5s var(--ease)}
 #lay-shapes rect.island{fill:var(--gold)}
-#lay-dots circle{fill:var(--cream)} #lay-dots text{fill:var(--cream);font:600 10px var(--f-display)}
+#lay-dots circle{fill:var(--cream)} #lay-dots text{fill:var(--cream);font:600 10px var(--f-display);paint-order:stroke;stroke:#0E2C21;stroke-width:4px;stroke-linejoin:round}
 .lay-legend{list-style:none;padding:0;margin:14px 0 0;display:flex;gap:22px;font-size:13px;color:var(--sage-2)}
 .lay-legend li{display:flex;align-items:center;gap:8px}
 .lay-legend i{width:14px;height:10px;display:inline-block}
