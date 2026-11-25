@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Alexandria:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/img/hero.webp">
+<link rel="preload" as="image" href="assets/img/hero.webp" imagesrcset="assets/img/hero-sm.webp 900w, assets/img/hero.webp 1800w" imagesizes="100vw" fetchpriority="high">
 <link rel="stylesheet" href="assets/v2.css">
 <script>document.documentElement.classList.replace("no-js","js");</script>
 <script type="application/ld+json">
@@ -98,7 +98,7 @@
     <div class="hb-count"><b id="hs-n">01</b><span>/ 03</span></div>
     <div class="hb-line"><i id="hs-prog"></i></div>
     <p class="hb-cap" id="hs-cap">مجموعة الأخضر العميق</p>
-    <a href="#intro" class="hb-scroll" aria-label="انزل إلى المحتوى"><span>اكتشف</span><i></i></a>
+    <a href="#intro" class="hb-scroll"><span>اكتشف</span><i></i></a>
   </div>
 </section>
 
@@ -411,15 +411,17 @@
       <p class="sh-sub rv">مراحل واضحة ومحددة المدة، تبدأ بالاستشارة وتنتهي بالتسليم.</p>
       <a href="#contact" class="b b-dark rv"><span>ابدأ بالمرحلة الأولى</span></a>
     </div>
-    <ol class="proc-l" id="proc-l">
+    <div class="proc-l" id="proc-l">
+    <span class="proc-line" aria-hidden="true"><i id="proc-fill"></i></span>
+    <ol class="proc-steps">
       <li class="pr"><span class="pr-n">01</span><div><h3>الاستشارة</h3><p>نتعرف على احتياجاتك: عدد أفراد الأسرة، وطريقة الطبخ، والأجهزة الحالية، والأسلوب المفضل.</p></div></li>
       <li class="pr"><span class="pr-n">02</span><div><h3>رفع المقاسات</h3><p>نزور موقعك لأخذ المقاسات الدقيقة وتحديد مخارج الكهرباء والماء والتهوية.</p></div></li>
       <li class="pr"><span class="pr-n">03</span><div><h3>التصميم ثلاثي الأبعاد</h3><p>نقدم المخطط والمناظير بالخامات والألوان، ونجري التعديلات حتى تعتمد التصميم.</p></div></li>
       <li class="pr"><span class="pr-n">04</span><div><h3>العينات وعرض السعر</h3><p>نعرض عليك عينات الواجهات والأسطح، ونقدم عرض سعر مفصلا بالبنود ومدة التنفيذ.</p></div></li>
       <li class="pr"><span class="pr-n">05</span><div><h3>التصنيع</h3><p>نبدأ التصنيع وفق الرسومات التنفيذية المعتمدة، ونطلعك على مراحل العمل.</p></div></li>
       <li class="pr"><span class="pr-n">06</span><div><h3>التركيب والتسليم</h3><p>يركب فريقنا المطبخ في موقعك، ونراجع معك جميع الأبواب والأدراج قبل التسليم.</p></div></li>
-      <span class="proc-line" aria-hidden="true"><i id="proc-fill"></i></span>
     </ol>
+    </div>
   </div>
 </section>
 

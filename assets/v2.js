@@ -75,9 +75,14 @@
     menu.hidden = false; requestAnimationFrame(() => menu.classList.add("is-open"));
     document.body.classList.add("menu-open"); mBtn.setAttribute("aria-expanded", "true"); $(".menu-lbl").textContent = "إغلاق";
     hd.classList.remove("is-hidden"); lenis && lenis.stop();
+    ["main", ".ft", "#fab", ".hd-logo", ".hd-cta", ".skip"].forEach(s => { const el = $(s); if (el) el.inert = true; });
+    setTimeout(() => { const f = $(".menu-nav a"); if (f) f.focus({ preventScroll: true }); }, 350);
   }
   function closeMenu() {
     if (menu.hidden) return;
+    const hadFocus = menu.contains(document.activeElement);
+    ["main", ".ft", "#fab", ".hd-logo", ".hd-cta", ".skip"].forEach(s => { const el = $(s); if (el) el.inert = false; });
+    if (hadFocus) mBtn.focus({ preventScroll: true });
     menu.classList.remove("is-open"); document.body.classList.remove("menu-open");
     mBtn.setAttribute("aria-expanded", "false"); $(".menu-lbl").textContent = "القائمة";
     lenis && lenis.start(); setTimeout(() => { if (!menu.classList.contains("is-open")) menu.hidden = true; }, 900);
@@ -360,7 +365,7 @@
 
   /* ---------- GSAP motion ---------- */
   const initMotion = () => {
-    if (!hasGsap() || reduce) { $$(".statement .w").forEach(w => w.style.opacity = 1); $("#proc-fill") && ($("#proc-fill").style.transform = "scaleY(1)"); return; }
+    if (!hasGsap() || reduce) { document.documentElement.classList.add("no-motion"); $$(".statement .w").forEach(w => w.style.opacity = 1); $("#proc-fill") && ($("#proc-fill").style.transform = "scaleY(1)"); return; }
     const { gsap, ScrollTrigger } = window;
     gsap.registerPlugin(ScrollTrigger);
     if (window.Lenis) {
