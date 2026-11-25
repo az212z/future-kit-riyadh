@@ -83,7 +83,7 @@
     lenis && lenis.start(); setTimeout(() => { if (!menu.classList.contains("is-open")) menu.hidden = true; }, 900);
   }
   mBtn.addEventListener("click", () => menu.classList.contains("is-open") ? closeMenu() : openMenu());
-  $$(".menu-nav a").forEach(a => a.addEventListener("mouseenter", () => { mImg.src = `../assets/img/${a.dataset.img}-sm.webp`; }));
+  $$(".menu-nav a").forEach(a => a.addEventListener("mouseenter", () => { mImg.src = `assets/img/${a.dataset.img}-sm.webp`; }));
   addEventListener("keydown", e => { if (e.key === "Escape") closeMenu(); });
 
   /* ---------- reveals ---------- */
@@ -290,7 +290,7 @@
   let fx = 0, fy = 0, tx = 0, ty = 0, flOn = false;
   if (fine && innerWidth > 1023) {
     $$(".sv").forEach(r => {
-      r.addEventListener("mouseenter", () => { flImg.src = `../assets/img/${r.dataset.img}-sm.webp`; fl.classList.add("is-on"); flOn = true; });
+      r.addEventListener("mouseenter", () => { flImg.src = `assets/img/${r.dataset.img}-sm.webp`; fl.classList.add("is-on"); flOn = true; });
       r.addEventListener("mouseleave", () => { fl.classList.remove("is-on"); flOn = false; });
     });
   }
@@ -395,10 +395,10 @@
 
   /* ---------- boot ---------- */
   const loader = $("#loader");
-  const seen = (() => { try { return sessionStorage.getItem("fk-v2-seen"); } catch (_) { return null; } })();
+  const seen = (() => { try { return sessionStorage.getItem("fk-seen"); } catch (_) { return null; } })();
   const finish = () => {
     if (loader.classList.contains("is-done")) return;
-    loader.classList.add("is-done"); try { sessionStorage.setItem("fk-v2-seen", "1"); } catch (_) {}
+    loader.classList.add("is-done"); try { sessionStorage.setItem("fk-seen", "1"); } catch (_) {}
     setTimeout(() => loader.remove(), 1200);
     startHero(); armReveals();
   };

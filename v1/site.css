@@ -245,7 +245,7 @@ p{margin:0 0 1em;text-wrap:pretty}
 .gallery-note{margin-top:10px}
 
 /* band */
-.band{background:var(--green-3) url("img/workshop-sm.webp") center/cover;position:relative;color:var(--cream)}
+.band{background:var(--green-3) url("../assets/img/workshop-sm.webp") center/cover;position:relative;color:var(--cream)}
 .band::before{content:"";position:absolute;inset:0;background:rgba(10,36,27,.88)}
 .band-inner{position:relative;padding-block:clamp(70px,9vw,120px);display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap}
 .band-quote{font-family:var(--f-display);font-size:clamp(24px,3.2vw,40px);font-weight:600;line-height:1.5;margin:0;max-width:22ch}
