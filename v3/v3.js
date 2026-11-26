@@ -140,112 +140,6 @@
   tabs($(".lay-list"), b => drawLay(b.dataset.lay));
   drawLay("L");
 
-  /* ---------- design studio ---------- */
-  const FRONTS = {
-    green:   { n: "أخضر عميق", fill: "#144131", dark: true,  contrast: "cream", splash: "#E9E4D8" },
-    sage:    { n: "مريمي",     fill: "#8D9788", dark: false, contrast: "cream", splash: "#EFEBE1" },
-    cream:   { n: "كريمي",     fill: "#ECE6D6", dark: false, contrast: "green", splash: "#DCD5C4" },
-    white:   { n: "أبيض ثلجي", fill: "#F8F7F3", dark: false, contrast: "oak",   splash: "#E3DFD6" },
-    charcoal:{ n: "فحمي",      fill: "#2B2E2C", dark: true,  contrast: "oak",   splash: "#D9D4C8" },
-    oak:     { n: "بلوط",      fill: "url(#woodOak)",    dark: false, contrast: "cream", splash: "#EEEAE0" },
-    walnut:  { n: "جوز",       fill: "url(#woodWalnut)", dark: true,  contrast: "cream", splash: "#E9E4D8" }
-  };
-  const TOPS = { quartz: ["كوارتز أبيض", "url(#mQuartz)"], calacatta: ["رخام كالاكاتا", "url(#mCalacatta)"], porcelain: ["بورسلان رمادي", "url(#mPorcelain)"], granite: ["جرانيت أسود", "url(#mGranite)"] };
-  const HANDLES = { gold: ["مقابض ذهبية", "#B6A379"], black: ["مقابض سوداء", "#1D1F1E"], gola: ["مقابض مخفية", null] };
-  const UPPERS = { same: "علوي بنفس اللون", contrast: "علوي بلون مكمل", glass: "علوي زجاجي مضاء", shelves: "رفوف مفتوحة" };
-  const LAYN = { L: "حرف L", U: "حرف U", I: "مع جزيرة", P: "متوازي", S: "مستقيم" };
-
-  const form = $("#studio-form"), K = $("#kitchen");
-  const state = () => {
-    const f = new FormData(form);
-    return { front: f.get("front"), upper: f.get("upper"), top: f.get("top"), handle: f.get("handle"), led: f.get("led") === "on", hood: f.get("hood") === "on", layout: f.get("layout") };
-  };
-  // handle geometry: [x, y, w, h] per door/drawer
-  const H_LOWER = [[160,322,4,34],[190,322,4,34],[368,316,40,4],[368,358,40,4],[368,400,40,4],[480,322,4,34]];
-  const H_UPPER = [[156,160,4,30],[184,160,4,30],[488,160,4,30]];
-  const H_TALL  = [[620,90,4,60],[620,350,4,60]];
-  const H_MID   = [[386,148,8,4]];
-
-  const render = () => {
-    const s = state(), F = FRONTS[s.front];
-    const upFill = s.upper === "contrast" ? FRONTS[F.contrast].fill : F.fill;
-    $$("#k-lower .fr, #k-tall .fr", K).forEach(r => r.setAttribute("fill", F.fill));
-    $$("#k-upper .fr", K).forEach(r => r.setAttribute("fill", upFill));
-    $("#k-midcab").setAttribute("fill", upFill);
-    $$("#k-shelves .sh", K).forEach(r => r.setAttribute("fill", s.front === "walnut" ? "url(#woodWalnut)" : "url(#woodOak)"));
-    $("#tileBase").setAttribute("fill", F.splash);
-    $("#k-counter").setAttribute("fill", TOPS[s.top][1]);
-
-    const ups = $$("#k-upper .fr", K);
-    $("#k-upper-glass").toggleAttribute("hidden", s.upper !== "glass");
-    $("#k-shelves").toggleAttribute("hidden", s.upper !== "shelves");
-    ups[0].style.display = ups[1].style.display = s.upper === "shelves" ? "none" : "";
-
-    $("#k-hood").style.display = s.hood ? "" : "none";
-    $("#k-midcab").toggleAttribute("hidden", s.hood);
-
-    const glow = s.led || s.upper === "glass";
-    $("#k-led").setAttribute("opacity", s.led ? ".75" : "0");
-    $("#k-led-bar").setAttribute("opacity", s.led ? "1" : "0");
-    $("#k-upper-glass").querySelectorAll("rect").forEach((r, i) => { if (i < 2) r.setAttribute("fill", glow ? "rgba(255,236,190,.55)" : "rgba(255,250,235,.35)"); });
-
-    const hg = $("#k-handles"); hg.innerHTML = "";
-    const hc = HANDLES[s.handle][1];
-    $("#k-gola").toggleAttribute("hidden", !!hc);
-    if (hc) {
-      let list = [...H_LOWER, ...H_TALL];
-      if (s.upper !== "shelves") list.push(H_UPPER[0], H_UPPER[1]);
-      list.push(H_UPPER[2]);
-      if (!s.hood) list.push(H_MID[0]);
-      list.forEach(([x, y, w, h]) => hg.appendChild(svgEl("rect", { x, y, width: w, height: h, rx: 1.5, fill: hc })));
-    }
-    $("#stage-tag").textContent = `${F.n} · ${TOPS[s.top][0]} · ${HANDLES[s.handle][0]}${s.led ? " · إضاءة LED" : ""}`;
-  };
-  form.addEventListener("change", render);
-  render();
-
-  const designSummary = () => {
-    const s = state();
-    return [
-      `• المخطط: ${LAYN[s.layout]}`,
-      `• لون الواجهات: ${FRONTS[s.front].n}`,
-      `• الوحدات العلوية: ${UPPERS[s.upper]}`,
-      `• السطح: ${TOPS[s.top][0]}`,
-      `• المقابض: ${HANDLES[s.handle][0]}`,
-      `• إضاءة LED: ${s.led ? "نعم" : "لا"}`,
-      `• الشفاط: ${s.hood ? "ظاهر" : "مخفي / مدمج"}`
-    ].join("\n");
-  };
-
-  const COMBOS = [
-    { front: "green", upper: "glass", top: "calacatta", handle: "gold", led: true, hood: true },
-    { front: "oak", upper: "same", top: "porcelain", handle: "gola", led: true, hood: false },
-    { front: "charcoal", upper: "contrast", top: "quartz", handle: "black", led: true, hood: true },
-    { front: "sage", upper: "shelves", top: "quartz", handle: "gold", led: false, hood: true },
-    { front: "cream", upper: "contrast", top: "calacatta", handle: "gold", led: true, hood: true },
-    { front: "walnut", upper: "same", top: "granite", handle: "gola", led: true, hood: false },
-    { front: "white", upper: "contrast", top: "porcelain", handle: "black", led: true, hood: true }
-  ];
-  let combo = 0;
-  $("#shuffle").addEventListener("click", () => {
-    combo = (combo + 1) % COMBOS.length; const c = COMBOS[combo];
-    ["front", "upper", "top", "handle"].forEach(n => { form.querySelector(`input[name="${n}"][value="${c[n]}"]`).checked = true; });
-    form.querySelector('input[name="led"]').checked = c.led; form.querySelector('input[name="hood"]').checked = c.hood;
-    render();
-  });
-
-  $("#send-design").addEventListener("click", async () => {
-    const msg = `السلام عليكم، أرغب في عرض سعر بناء على الاختيارات التالية من أداة التصور في موقعكم:\n${designSummary()}`;
-    const r = await sendMessage(msg);
-    if (r === "copied") toast("تم نسخ الاختيارات. يرجى إكمال البيانات في نموذج الطلب.");
-    goTo("#request");
-    setTimeout(() => $('#contact-form input[name="name"]').focus({ preventScroll: true }), 700);
-  });
-
-
-
-
-
   /* ---------- gallery lightbox ---------- */
   const tiles = $$(".g"), lb = $("#lb"), lbImg = $("img", lb), lbCap = $("figcaption", lb);
   let cur = 0, lastFocus = null;
@@ -279,7 +173,6 @@
       cf.district.value.trim() && `الحي: ${cf.district.value.trim()}`,
       `نوع المشروع: ${cf.type.value}`,
       cf.msg.value.trim() && `التفاصيل: ${cf.msg.value.trim()}`,
-      cf.attach.checked && `\nالاختيارات من أداة التصور:\n${designSummary()}`
     ].filter(Boolean).join("\n");
     stEl.className = "f-status"; stEl.textContent = "جار تجهيز الطلب";
     const r = await sendMessage(lines);
